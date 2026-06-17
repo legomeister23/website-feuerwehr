@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { abteilungen, kontakt } from '../data/site.js';
+import { url } from '../lib/url.js';
 
 const gruende = [
   { t: 'Sinnvolles Ehrenamt', d: 'Du hilfst direkt den Menschen in deiner Nachbarschaft.' },
@@ -39,11 +40,11 @@ const gruende = [
           <span class="eyebrow">Wo passst du hin?</span>
           <h2 class="head-row__title">Such dir deine Abteilung aus.</h2>
         </div>
-        <a href="/abteilungen" class="link-underline">Alle Details →</a>
+        <a href={url('/abteilungen')} class="link-underline">Alle Details →</a>
       </div>
       <div class="grid grid-3">
         {abteilungen.filter((a) => a.slug !== 'foerderverein').map((a, i) => (
-          <a href={`/abteilungen#${a.slug}`} class="join" data-reveal={i * 70}>
+          <a href={url(`/abteilungen#${a.slug}`)} class="join" data-reveal={i * 70}>
             <span class="icon-badge"><Icon name={a.icon} /></span>
             <h3 class="join__t">{a.name}</h3>
             <p class="join__alter">{a.alter}</p>
@@ -60,7 +61,7 @@ const gruende = [
         <h2 class="cta__title">Bereit für den ersten Dienst?</h2>
         <p class="lead">Melde dich bei uns oder komm direkt zu einem Übungsabend ins Gerätehaus, {kontakt.strasse}, {kontakt.ort}.</p>
       </div>
-      <a href="/kontakt" class="btn btn--primary">Kontakt aufnehmen <Icon name="arrow" size={18} /></a>
+      <a href={url('/kontakt')} class="btn btn--primary">Kontakt aufnehmen <Icon name="arrow" size={18} /></a>
     </div>
   </section>
 </Base>

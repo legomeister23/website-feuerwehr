@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 import Icon from '../components/Icon.astro';
 import { kontakt } from '../data/site.js';
+import { url } from '../lib/url.js';
 
 const punkte = [
   'Anschaffung zusätzlicher Ausrüstung und Technik',
@@ -29,7 +30,7 @@ const punkte = [
           ))}
         </ul>
         <p class="muted-note">Beitragshöhe, Satzung und Beitrittsformular werden ergänzt, sobald die Inhalte vorliegen.</p>
-        <a href="/kontakt" class="btn btn--primary">Fördermitglied werden <Icon name="arrow" size={18} /></a>
+        <a href={url('/kontakt')} class="btn btn--primary">Fördermitglied werden <Icon name="arrow" size={18} /></a>
       </div>
       <div data-reveal="120">
         <PhotoPlaceholder label="FOTO · FÖRDERVEREIN" ratio="4 / 3" />

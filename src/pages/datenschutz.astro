@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { kontakt } from '../data/site.js';
+import { url } from '../lib/url.js';
 ---
 <Base title="Datenschutz" description="Datenschutzerklärung der Freiwilligen Feuerwehr Bendestorf.">
   <PageHero eyebrow="Rechtliches" title="Datenschutzerklärung" />
@@ -16,7 +17,7 @@ import { kontakt } from '../data/site.js';
       <h2>1. Verantwortlicher</h2>
       <p>
         Verantwortlich im Sinne der DSGVO ist die Freiwillige Feuerwehr Bendestorf bzw. ihr Träger.
-        Vollständige Kontaktdaten siehe <a href="/impressum">Impressum</a>.<br />
+        Vollständige Kontaktdaten siehe <a href={url('/impressum')}>Impressum</a>.<br />
         E-Mail: <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
       </p>
 

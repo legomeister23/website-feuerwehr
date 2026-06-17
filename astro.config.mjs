@@ -2,14 +2,17 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 //
-// Hinweis zum Hosting:
-// - Bei GitHub Pages als Projektseite (……github.io/website-feuerwehr) muss
-//   `base: '/website-feuerwehr'` gesetzt werden.
-// - Bei eigener Domain (z. B. feuerwehr-bendestorf.de) bleibt `base` leer und
-//   `site` wird auf die Domain gesetzt.
-// Wir lassen es bis zur Hosting-Entscheidung auf Root – einfach lokal testbar.
+// Hosting: GitHub Pages als Projektseite.
+// Live-URL: https://legomeister23.github.io/website-feuerwehr/
+//
+// Bei Umstieg auf eine eigene Domain (z. B. feuerwehr-bendestorf.de):
+//   1. `site` auf die Domain setzen
+//   2. `base` auf '/' setzen (oder die Zeile entfernen)
+//   3. public/CNAME mit der Domain anlegen
+// Dank des URL-Helpers (src/lib/url.js) funktionieren alle internen Links dann automatisch.
 export default defineConfig({
-  site: 'https://www.feuerwehr-bendestorf.de',
+  site: 'https://legomeister23.github.io',
+  base: '/website-feuerwehr',
   trailingSlash: 'ignore',
   build: {
     format: 'directory',

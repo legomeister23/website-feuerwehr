@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import { url } from '../lib/url.js';
 ---
 <Base title="Seite nicht gefunden">
   <section class="nf">
@@ -8,7 +9,7 @@ import Icon from '../components/Icon.astro';
       <span class="eyebrow">Fehler 404</span>
       <h1 class="nf__title">Diese Seite ist ausgerückt.</h1>
       <p class="lead">Die angeforderte Seite gibt es nicht (mehr). Vielleicht findest du, was du suchst, über die Startseite.</p>
-      <a href="/" class="btn btn--primary">Zur Startseite <Icon name="arrow" size={18} /></a>
+      <a href={url('/')} class="btn btn--primary">Zur Startseite <Icon name="arrow" size={18} /></a>
     </div>
   </section>
 </Base>

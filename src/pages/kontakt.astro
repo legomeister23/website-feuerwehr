@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import { kontakt, verein } from '../data/site.js';
+import { url } from '../lib/url.js';
 
 const wege = [
   { icon: 'location', t: 'Gerätehaus', l: `${kontakt.strasse}, ${kontakt.plz} ${kontakt.ort}`, href: `https://www.openstreetmap.org/search?query=${encodeURIComponent(kontakt.strasse + ' ' + kontakt.plz + ' ' + kontakt.ort)}` },
@@ -44,7 +45,7 @@ const wege = [
       </div>
 
       <p class="legal-hint">
-        Verantwortlich: {verein.name}. Vollständige Angaben im <a href="/impressum" class="link-underline">Impressum</a>.
+        Verantwortlich: {verein.name}. Vollständige Angaben im <a href={url('/impressum')} class="link-underline">Impressum</a>.
       </p>
     </div>
   </section>

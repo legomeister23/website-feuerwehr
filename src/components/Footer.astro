@@ -1,5 +1,6 @@
 ---
 import { verein, kontakt, abteilungen } from '../data/site.js';
+import { url } from '../lib/url.js';
 import Icon from './Icon.astro';
 const jahr = new Date().getFullYear();
 ---
@@ -22,7 +23,7 @@ const jahr = new Date().getFullYear();
       <h4 class="col-title">Abteilungen</h4>
       <ul class="links">
         {abteilungen.map((a) => (
-          <li><a href={`/abteilungen#${a.slug}`}>{a.name}</a></li>
+          <li><a href={url(`/abteilungen#${a.slug}`)}>{a.name}</a></li>
         ))}
       </ul>
     </div>
@@ -30,20 +31,20 @@ const jahr = new Date().getFullYear();
     <div>
       <h4 class="col-title">Mehr</h4>
       <ul class="links">
-        <li><a href="/berichte">Berichte &amp; Aktuelles</a></li>
-        <li><a href="/fahrzeuge">Fahrzeuge &amp; Ausstattung</a></li>
-        <li><a href="/ueber-uns">Über uns / Kommando</a></li>
-        <li><a href="/mitmachen">Mitmachen</a></li>
-        <li><a href="/foerderverein">Förderverein</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href={url('/berichte')}>Berichte &amp; Aktuelles</a></li>
+        <li><a href={url('/fahrzeuge')}>Fahrzeuge &amp; Ausstattung</a></li>
+        <li><a href={url('/ueber-uns')}>Über uns / Kommando</a></li>
+        <li><a href={url('/mitmachen')}>Mitmachen</a></li>
+        <li><a href={url('/foerderverein')}>Förderverein</a></li>
+        <li><a href={url('/kontakt')}>Kontakt</a></li>
       </ul>
     </div>
 
     <div>
       <h4 class="col-title">Rechtliches</h4>
       <ul class="links">
-        <li><a href="/impressum">Impressum</a></li>
-        <li><a href="/datenschutz">Datenschutz</a></li>
+        <li><a href={url('/impressum')}>Impressum</a></li>
+        <li><a href={url('/datenschutz')}>Datenschutz</a></li>
       </ul>
     </div>
   </div>

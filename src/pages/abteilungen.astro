@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 import Icon from '../components/Icon.astro';
 import { abteilungen } from '../data/site.js';
+import { url } from '../lib/url.js';
 ---
 <Base title="Abteilungen" description="Von der Kinderfeuerwehr bis zur Alters- und Ehrenabteilung – die Abteilungen der Freiwilligen Feuerwehr Bendestorf im Überblick.">
   <PageHero
@@ -27,7 +28,7 @@ import { abteilungen } from '../data/site.js';
               <span><Icon name="clock" size={15} /> {a.dienst}</span>
             </div>
             <p class="dept-row__text">{a.text}</p>
-            <a href="/mitmachen" class="link-underline">Mitmachen &amp; Kontakt →</a>
+            <a href={url('/mitmachen')} class="link-underline">Mitmachen &amp; Kontakt →</a>
           </div>
         </article>
       ))}

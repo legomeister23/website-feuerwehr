@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 import { verein, kontakt, kennzahlen, abteilungen, berichte } from '../data/site.js';
+import { url } from '../lib/url.js';
 
 const kernAbteilungen = abteilungen.filter((a) =>
   ['kinderfeuerwehr', 'jugendfeuerwehr', 'einsatzabteilung'].includes(a.slug)
@@ -20,8 +21,8 @@ const kernAbteilungen = abteilungen.filter((a) =>
           Retten, Löschen, Bergen, Schützen — rund um die Uhr.
         </p>
         <div class="hero__cta">
-          <a href="/mitmachen" class="btn btn--primary">Mitglied werden <Icon name="arrow" size={18} /></a>
-          <a href="/abteilungen" class="btn btn--ghost">Unsere Abteilungen</a>
+          <a href={url('/mitmachen')} class="btn btn--primary">Mitglied werden <Icon name="arrow" size={18} /></a>
+          <a href={url('/abteilungen')} class="btn btn--ghost">Unsere Abteilungen</a>
         </div>
         <p class="hero__addr">
           <Icon name="location" size={16} />
@@ -61,12 +62,12 @@ const kernAbteilungen = abteilungen.filter((a) =>
           <span class="eyebrow">Mitmachen</span>
           <h2 class="head-row__title">Eine Feuerwehr für jedes Alter.</h2>
         </div>
-        <a href="/abteilungen" class="link-underline">Alle Abteilungen →</a>
+        <a href={url('/abteilungen')} class="link-underline">Alle Abteilungen →</a>
       </div>
 
       <div class="grid grid-3">
         {kernAbteilungen.map((a, i) => (
-          <a href={`/abteilungen#${a.slug}`} class:list={['dept', { 'dept--accent': a.slug === 'einsatzabteilung' }]} data-reveal={i * 90}>
+          <a href={url(`/abteilungen#${a.slug}`)} class:list={['dept', { 'dept--accent': a.slug === 'einsatzabteilung' }]} data-reveal={i * 90}>
             <span class="icon-badge"><Icon name={a.icon} /></span>
             <h3 class="dept__name">{a.name}</h3>
             <p class="dept__alter">{a.alter}</p>
@@ -83,11 +84,11 @@ const kernAbteilungen = abteilungen.filter((a) =>
     <div class="container">
       <div class="head-row" data-reveal="0">
         <h2 class="head-row__title">Aktuelle Berichte</h2>
-        <a href="/berichte" class="link-underline">Alle Berichte →</a>
+        <a href={url('/berichte')} class="link-underline">Alle Berichte →</a>
       </div>
       <div class="grid grid-3">
         {berichte.map((b, i) => (
-          <a href={`/berichte#${b.slug}`} class="report" data-reveal={i * 90}>
+          <a href={url(`/berichte#${b.slug}`)} class="report" data-reveal={i * 90}>
             <PhotoPlaceholder label="FOTO" ratio="16 / 10" />
             <div class="report__body">
               <span class="report__cat">{b.kategorie}</span>
@@ -107,7 +108,7 @@ const kernAbteilungen = abteilungen.filter((a) =>
         <h2 class="cta__title">Werde Teil der Mannschaft.</h2>
         <p class="lead">Ob 6 oder 67 — bei uns findet jede und jeder den passenden Platz. Komm zu einem Dienst vorbei und lern uns kennen.</p>
       </div>
-      <a href="/mitmachen" class="btn btn--primary">Jetzt mitmachen <Icon name="arrow" size={18} /></a>
+      <a href={url('/mitmachen')} class="btn btn--primary">Jetzt mitmachen <Icon name="arrow" size={18} /></a>
     </div>
   </section>
 </Base>
