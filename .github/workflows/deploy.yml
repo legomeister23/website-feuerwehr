@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - claude/relaxed-goldberg-3jocvj
   workflow_dispatch:
 
 permissions:
