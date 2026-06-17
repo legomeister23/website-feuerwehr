@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  label?: string;
+  ratio?: string;   // z.B. "4 / 5", "16 / 9"
+  rounded?: boolean;
+  class?: string;
+}
+const { label = 'FOTO', ratio = '4 / 3', rounded = true, class: cls = '' } = Astro.props;
+---
+<div class:list={['photo', { 'photo--rounded': rounded }, cls]} style={`aspect-ratio:${ratio}`}>
+  <div class="photo__inner">
+    <Icon name="helmet" size={36} />
+    <span class="photo__label">{label}</span>
+  </div>
+</div>
+
+<style>
+  .photo {
+    position: relative; overflow: hidden;
+    background: #d8d2c6;
+    background-image: repeating-linear-gradient(45deg, rgba(22,25,31,.05) 0 14px, transparent 14px 28px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .photo--rounded { border-radius: var(--radius-lg); }
+  .photo__inner { display: flex; flex-direction: column; align-items: center; gap: 10px; color: #9a9285; }
+  .photo__label { font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: .1em; }
+</style>

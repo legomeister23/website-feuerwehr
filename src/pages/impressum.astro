@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { verein, kontakt } from '../data/site.js';
+---
+<Base title="Impressum" description="Impressum der Freiwilligen Feuerwehr Bendestorf.">
+  <PageHero eyebrow="Rechtliches" title="Impressum" />
+
+  <section class="section legal" style="padding-top: 0">
+    <div class="container legal__inner">
+      <div class="note" data-reveal="0">
+        Vorlage – bitte vor Veröffentlichung rechtlich prüfen und alle mit „TODO“ markierten Angaben vervollständigen.
+        Die Impressumspflicht für die Feuerwehr/Träger richtet sich nach § 5 DDG (ehem. TMG).
+      </div>
+
+      <h2>Angaben gemäß § 5 DDG</h2>
+      <p>
+        {verein.name}<br />
+        {kontakt.strasse}<br />
+        {kontakt.plz} {kontakt.ort}
+      </p>
+      <p>TODO: Trägerschaft klären (z.&nbsp;B. Gemeinde Bendestorf / Samtgemeinde Jesteburg als Träger der Feuerwehr) und korrekt angeben.</p>
+
+      <h2>Vertreten durch</h2>
+      <p>TODO: Ortsbrandmeister (Name) / verantwortliche Person</p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Telefon: {kontakt.telefon}<br />
+        E-Mail: <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
+      </p>
+
+      <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+      <p>TODO: Name und Anschrift der verantwortlichen Person</p>
+
+      <h2>Haftung für Inhalte</h2>
+      <p>
+        Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
+        verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde
+        Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit
+        hinweisen.
+      </p>
+
+      <h2>Haftung für Links</h2>
+      <p>
+        Unser Angebot enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte wir keinen
+        Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter
+        verantwortlich.
+      </p>
+
+      <h2>Urheberrecht</h2>
+      <p>
+        Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem
+        deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal__inner { max-width: 72ch; }
+  .legal h2 { font-weight: 800; font-size: 22px; margin: 32px 0 10px; }
+  .legal p { color: var(--ink-soft); }
+  .legal a { color: var(--red); }
+  .note { background: var(--tint); color: var(--red-dark); border-radius: 12px; padding: 14px 18px; margin-bottom: 28px; font-size: 14px; }
+</style>

@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import { fahrzeuge } from '../data/site.js';
+---
+<Base title="Fahrzeuge & Ausstattung" description="Die Fahrzeuge und die technische Ausstattung der Freiwilligen Feuerwehr Bendestorf.">
+  <PageHero
+    eyebrow="Technik"
+    title="Fahrzeuge & Ausstattung"
+    text="Moderne Technik, die im Ernstfall zählt. Hier stellen wir unseren Fuhrpark und die wichtigste Ausrüstung vor."
+  />
+
+  <section class="section" style="padding-top: 0">
+    <div class="container">
+      <div class="note" data-reveal="0">
+        <Icon name="helmet" size={18} />
+        <p>Die Fahrzeugdaten werden ergänzt, sobald die Inhalte von der bisherigen Website übernommen sind.</p>
+      </div>
+
+      <div class="grid grid-2 veh-grid">
+        {fahrzeuge.map((f, i) => (
+          <article class="veh" data-reveal={i * 90}>
+            <PhotoPlaceholder label="FOTO · FAHRZEUG" ratio="16 / 10" />
+            <div class="veh__body">
+              <div class="veh__head">
+                <span class="veh__kuerzel">{f.kuerzel}</span>
+                <h2 class="veh__name">{f.name}</h2>
+              </div>
+              <p class="veh__typ">{f.typ}</p>
+              <p class="veh__desc">{f.beschreibung}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .note { display: flex; align-items: center; gap: 12px; background: var(--tint); color: var(--red-dark); border-radius: 12px; padding: 14px 18px; margin-bottom: 32px; font-size: 14px; }
+  .note p { margin: 0; }
+  .veh { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .veh :global(.photo) { border-radius: 0; }
+  .veh__body { padding: 24px; }
+  .veh__head { display: flex; align-items: baseline; gap: 12px; }
+  .veh__kuerzel { font-family: var(--font-display); font-weight: 900; color: var(--red); font-size: 14px; letter-spacing: .04em; }
+  .veh__name { font-weight: 800; font-size: 22px; margin: 0; }
+  .veh__typ { color: var(--ink); font-weight: 600; font-size: 14px; margin: 4px 0 12px; }
+  .veh__desc { color: var(--muted); font-size: 15px; line-height: 1.55; margin: 0; }
+</style>

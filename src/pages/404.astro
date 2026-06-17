@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Seite nicht gefunden">
+  <section class="nf">
+    <div class="container" data-reveal="0">
+      <span class="eyebrow">Fehler 404</span>
+      <h1 class="nf__title">Diese Seite ist ausgerückt.</h1>
+      <p class="lead">Die angeforderte Seite gibt es nicht (mehr). Vielleicht findest du, was du suchst, über die Startseite.</p>
+      <a href="/" class="btn btn--primary">Zur Startseite <Icon name="arrow" size={18} /></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { padding-block: clamp(60px, 12vw, 140px); }
+  .nf__title { font-weight: 900; font-size: clamp(34px, 6vw, 64px); margin-bottom: 16px; }
+  .nf .lead { max-width: 48ch; margin-bottom: 28px; }
+</style>

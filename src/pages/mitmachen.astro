@@ -1,0 +1,86 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { abteilungen, kontakt } from '../data/site.js';
+
+const gruende = [
+  { t: 'Sinnvolles Ehrenamt', d: 'Du hilfst direkt den Menschen in deiner Nachbarschaft.' },
+  { t: 'Echte Gemeinschaft', d: 'Kameradschaft, die weit über den Dienst hinausgeht.' },
+  { t: 'Top-Ausbildung', d: 'Lehrgänge, Technik und Wissen, das dich ein Leben lang begleitet.' },
+  { t: 'Für jedes Alter', d: 'Vom Kindesalter bis zur Ehrenabteilung ist Platz für dich.' },
+];
+---
+<Base title="Mitmachen" description="Werde Teil der Freiwilligen Feuerwehr Bendestorf – Mitmachen ab 6 Jahren, in jeder Lebenslage.">
+  <PageHero
+    eyebrow="Werde Teil der Mannschaft"
+    title="Mitmachen bei der Feuerwehr."
+    text="Keine Vorerfahrung nötig, keine Verpflichtung beim ersten Besuch. Komm einfach zu einem Dienst vorbei und schau dir an, was wir machen."
+  />
+
+  <section class="section" style="padding-top: 0">
+    <div class="container">
+      <div class="grid grid-4">
+        {gruende.map((g, i) => (
+          <div class="card reason" data-reveal={i * 80}>
+            <span class="icon-badge"><Icon name="check" /></span>
+            <h3 class="reason__t">{g.t}</h3>
+            <p class="reason__d">{g.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="head-row" data-reveal="0">
+        <div>
+          <span class="eyebrow">Wo passst du hin?</span>
+          <h2 class="head-row__title">Such dir deine Abteilung aus.</h2>
+        </div>
+        <a href="/abteilungen" class="link-underline">Alle Details →</a>
+      </div>
+      <div class="grid grid-3">
+        {abteilungen.filter((a) => a.slug !== 'foerderverein').map((a, i) => (
+          <a href={`/abteilungen#${a.slug}`} class="join" data-reveal={i * 70}>
+            <span class="icon-badge"><Icon name={a.icon} /></span>
+            <h3 class="join__t">{a.name}</h3>
+            <p class="join__alter">{a.alter}</p>
+            <p class="join__dienst"><Icon name="clock" size={15} /> {a.dienst}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container cta__inner" data-reveal="0">
+      <div>
+        <h2 class="cta__title">Bereit für den ersten Dienst?</h2>
+        <p class="lead">Melde dich bei uns oder komm direkt zu einem Übungsabend ins Gerätehaus, {kontakt.strasse}, {kontakt.ort}.</p>
+      </div>
+      <a href="/kontakt" class="btn btn--primary">Kontakt aufnehmen <Icon name="arrow" size={18} /></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .reason__t { font-weight: 800; font-size: 18px; margin: 0 0 6px; }
+  .reason__d { color: var(--muted); font-size: 15px; margin: 0; }
+
+  .section--alt { background: var(--cream); }
+  .head-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 34px; }
+  .head-row__title { font-weight: 800; font-size: clamp(30px, 3.6vw, 46px); margin: 0; }
+
+  .join { display: block; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+  .join:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .join__t { font-weight: 800; font-size: 20px; margin: 0 0 2px; }
+  .join__alter { color: var(--red); font-weight: 700; font-size: 13px; margin: 0 0 10px; }
+  .join__dienst { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; margin: 0; }
+
+  .cta { background: var(--ink); color: #fff; }
+  .cta__inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding-block: clamp(48px, 7vw, 72px); flex-wrap: wrap; }
+  .cta__title { font-weight: 900; font-size: clamp(28px, 4vw, 46px); color: #fff; }
+  .cta .lead { color: var(--on-dark); max-width: 52ch; margin: 0; }
+</style>

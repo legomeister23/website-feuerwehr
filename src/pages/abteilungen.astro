@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import Icon from '../components/Icon.astro';
+import { abteilungen } from '../data/site.js';
+---
+<Base title="Abteilungen" description="Von der Kinderfeuerwehr bis zur Alters- und Ehrenabteilung – die Abteilungen der Freiwilligen Feuerwehr Bendestorf im Überblick.">
+  <PageHero
+    eyebrow="Mitmachen"
+    title="Eine Feuerwehr für jedes Alter."
+    text="Bei uns findet jede und jeder den passenden Platz – vom ersten Knoten in der Kinderfeuerwehr bis zur gelebten Kameradschaft in der Ehrenabteilung."
+  />
+
+  <section class="section" style="padding-top: 0">
+    <div class="container dept-list">
+      {abteilungen.map((a, i) => (
+        <article id={a.slug} class:list={['dept-row', { 'dept-row--rev': i % 2 === 1 }]} data-reveal="0">
+          <div class="dept-row__media">
+            <PhotoPlaceholder label={`FOTO · ${a.name.toUpperCase()}`} ratio="4 / 3" />
+          </div>
+          <div class="dept-row__body">
+            <span class="icon-badge"><Icon name={a.icon} /></span>
+            <h2 class="dept-row__title">{a.name}</h2>
+            <div class="dept-row__meta">
+              <span><Icon name="users" size={15} /> {a.alter}</span>
+              <span><Icon name="clock" size={15} /> {a.dienst}</span>
+            </div>
+            <p class="dept-row__text">{a.text}</p>
+            <a href="/mitmachen" class="link-underline">Mitmachen &amp; Kontakt →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .dept-list { display: flex; flex-direction: column; gap: clamp(40px, 6vw, 72px); }
+  .dept-row { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; scroll-margin-top: 120px; }
+  .dept-row--rev .dept-row__media { order: 2; }
+  .dept-row__title { font-weight: 800; font-size: clamp(26px, 3vw, 38px); margin: 0 0 14px; }
+  .dept-row__meta { display: flex; flex-wrap: wrap; gap: 18px; margin-bottom: 18px; }
+  .dept-row__meta span { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--ink); }
+  .dept-row__meta :global(svg) { color: var(--red); }
+  .dept-row__text { color: var(--ink-soft); margin-bottom: 18px; }
+  @media (max-width: 820px) {
+    .dept-row { grid-template-columns: 1fr; gap: 24px; }
+    .dept-row--rev .dept-row__media { order: 0; }
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { kontakt, verein } from '../data/site.js';
+
+const wege = [
+  { icon: 'location', t: 'Gerätehaus', l: `${kontakt.strasse}, ${kontakt.plz} ${kontakt.ort}`, href: `https://www.openstreetmap.org/search?query=${encodeURIComponent(kontakt.strasse + ' ' + kontakt.plz + ' ' + kontakt.ort)}` },
+  { icon: 'phone', t: 'Telefon', l: kontakt.telefon, href: `tel:${kontakt.telefonHref}` },
+  { icon: 'mail', t: 'E-Mail', l: kontakt.email, href: `mailto:${kontakt.email}` },
+];
+---
+<Base title="Kontakt" description="So erreichst du die Freiwillige Feuerwehr Bendestorf – Adresse, Telefon und E-Mail.">
+  <PageHero
+    eyebrow="Kontakt"
+    title="So erreichst du uns."
+    text="Bei einem Notfall immer die 112 wählen. Für alle anderen Anliegen, Fragen zum Mitmachen oder zur Wehr erreichst du uns hier."
+  />
+
+  <section class="section" style="padding-top: 0">
+    <div class="container">
+      <div class="notruf-band" data-reveal="0">
+        <div><span class="dot"></span> Im Notfall</div>
+        <a href={`tel:${kontakt.notruf}`} class="notruf-band__num">{kontakt.notruf}</a>
+        <span class="notruf-band__hint">Feuerwehr & Rettungsdienst</span>
+      </div>
+
+      <div class="grid grid-3 wege">
+        {wege.map((w, i) => (
+          <a href={w.href} class="card weg" data-reveal={i * 80} target={w.icon === 'location' ? '_blank' : undefined} rel={w.icon === 'location' ? 'noopener' : undefined}>
+            <span class="icon-badge"><Icon name={w.icon} /></span>
+            <h3 class="weg__t">{w.t}</h3>
+            <p class="weg__l">{w.l}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="map" data-reveal="0">
+        <div class="map__placeholder">
+          <Icon name="location" size={28} />
+          <p>Kartenausschnitt &amp; Anfahrt — wird auf Wunsch als datenschutzkonforme Karte (z.&nbsp;B. OpenStreetMap) eingebunden.</p>
+          <a href={wege[0].href} class="btn btn--ghost" target="_blank" rel="noopener">In Karte öffnen</a>
+        </div>
+      </div>
+
+      <p class="legal-hint">
+        Verantwortlich: {verein.name}. Vollständige Angaben im <a href="/impressum" class="link-underline">Impressum</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notruf-band {
+    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    background: var(--ink); color: #fff; border-radius: var(--radius); padding: 22px 28px; margin-bottom: 32px;
+  }
+  .notruf-band > div { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .04em; }
+  .notruf-band__num { font-family: var(--font-display); font-weight: 900; font-size: clamp(36px, 6vw, 52px); color: var(--ember); line-height: 1; }
+  .notruf-band__hint { color: var(--on-dark-muted); font-size: 14px; }
+
+  .wege { margin-bottom: 32px; }
+  .weg { display: block; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+  .weg:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .weg__t { font-weight: 800; font-size: 18px; margin: 0 0 4px; }
+  .weg__l { color: var(--ink-soft); font-size: 15px; margin: 0; word-break: break-word; }
+
+  .map__placeholder {
+    border: 1px dashed var(--line); border-radius: var(--radius); padding: 44px 28px; text-align: center; color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; gap: 14px; background: var(--paper);
+  }
+  .map__placeholder :global(svg) { color: var(--red); }
+  .map__placeholder p { max-width: 48ch; margin: 0; }
+
+  .legal-hint { margin-top: 28px; font-size: 14px; color: var(--muted); }
+</style>

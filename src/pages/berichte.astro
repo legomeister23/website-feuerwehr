@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import { berichte } from '../data/site.js';
+---
+<Base title="Berichte & Aktuelles" description="Einsätze, Übungen und Veranstaltungen der Freiwilligen Feuerwehr Bendestorf.">
+  <PageHero
+    eyebrow="Aktuelles"
+    title="Berichte aus der Wehr"
+    text="Einsätze, Übungen und Veranstaltungen – ein Einblick in das, was uns das Jahr über bewegt."
+  />
+
+  <section class="section" style="padding-top: 0">
+    <div class="container">
+      <div class="note" data-reveal="0">
+        Die folgenden Beiträge sind Beispiele aus der Designvorlage. Die echten Berichte werden übernommen, sobald die Inhalte der bisherigen Website vorliegen.
+      </div>
+
+      <div class="grid grid-3">
+        {berichte.map((b, i) => (
+          <article id={b.slug} class="report" data-reveal={i * 90}>
+            <PhotoPlaceholder label="FOTO" ratio="16 / 10" />
+            <div class="report__body">
+              <span class="report__cat">{b.kategorie}</span>
+              <h2 class="report__title">{b.titel}</h2>
+              <p class="report__teaser">{b.teaser}</p>
+              {b.beispiel && <span class="report__flag">Beispielinhalt</span>}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .note { background: var(--tint); color: var(--red-dark); border-radius: 12px; padding: 14px 18px; margin-bottom: 32px; font-size: 14px; }
+  .report { display: block; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; scroll-margin-top: 120px; }
+  .report :global(.photo) { border-radius: 0; }
+  .report__body { padding: 22px; }
+  .report__cat { color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .report__title { font-weight: 800; font-size: 19px; margin: 10px 0 8px; line-height: 1.2; }
+  .report__teaser { color: var(--muted); font-size: 14px; line-height: 1.55; margin: 0; }
+  .report__flag { display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--muted); border: 1px dashed var(--line); border-radius: 999px; padding: 3px 10px; }
+</style>

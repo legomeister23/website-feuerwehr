@@ -1,0 +1,102 @@
+---
+// Self-hosted Fonts (DSGVO-konform, kein externer Google-Request).
+import '@fontsource/archivo/600.css';
+import '@fontsource/archivo/700.css';
+import '@fontsource/archivo/800.css';
+import '@fontsource/archivo/900.css';
+import '@fontsource/public-sans/400.css';
+import '@fontsource/public-sans/500.css';
+import '@fontsource/public-sans/600.css';
+import '@fontsource/public-sans/700.css';
+import '../styles/global.css';
+
+import EmergencyBar from '../components/EmergencyBar.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { verein } from '../data/site.js';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title,
+  description = 'Freiwillige Feuerwehr Bendestorf – Stützpunktfeuerwehr der Samtgemeinde Jesteburg. Retten, Löschen, Bergen, Schützen – ehrenamtlich, rund um die Uhr.',
+} = Astro.props;
+const fullTitle = title ? `${title} · ${verein.kurzname}` : `${verein.name}`;
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#16191f" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a href="#main" class="sr-only">Zum Inhalt springen</a>
+    <EmergencyBar />
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Scroll-Reveal über IntersectionObserver, mit Failsafe.
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reveals = Array.from(document.querySelectorAll('[data-reveal]'));
+      reveals.forEach((el) => {
+        const d = el.getAttribute('data-reveal');
+        if (d) el.style.setProperty('--reveal-delay', `${d}ms`);
+      });
+
+      const show = (el) => {
+        if (el.dataset.shown) return;
+        el.dataset.shown = '1';
+        el.classList.add('is-visible');
+        const counter = el.matches('[data-count]') ? el : el.querySelector('[data-count]');
+        if (counter) countUp(counter);
+        el.querySelectorAll?.('[data-count]').forEach((c) => c !== counter && countUp(c));
+      };
+
+      if (reduce) {
+        reveals.forEach(show);
+      } else if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+        }, { threshold: 0.16, rootMargin: '0px 0px -7% 0px' });
+        reveals.forEach((el) => io.observe(el));
+        // Failsafe: bereits sichtbare Elemente sofort zeigen.
+        const vh = window.innerHeight;
+        reveals.forEach((el) => { const r = el.getBoundingClientRect(); if (r.top < vh * 0.95 && r.bottom > 0) show(el); });
+      } else {
+        reveals.forEach(show);
+      }
+
+      function countUp(el) {
+        if (el.dataset.counted || reduce) {
+          if (reduce && el.dataset.target) el.textContent = el.dataset.target + (el.dataset.suffix || '');
+          return;
+        }
+        el.dataset.counted = '1';
+        const target = parseFloat(el.dataset.target || '0');
+        const suffix = el.dataset.suffix || '';
+        const dur = 1400; const start = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (p < 1) requestAnimationFrame(tick); else el.textContent = target + suffix;
+        };
+        requestAnimationFrame(tick);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,221 @@
+/* ==========================================================================
+   Design-System – Freiwillige Feuerwehr Bendestorf
+   Richtung A „Klar & Verlässlich“: hell, strukturiert, behördlich-souverän.
+   Display: Archivo · Body/UI: Public Sans · Akzent: Feuerwehr-Rot.
+   Fonts werden self-hosted über @fontsource eingebunden (DSGVO-konform).
+   ========================================================================== */
+
+:root {
+  /* Farben */
+  --cream: #f4f1ea;      /* Seitenhintergrund */
+  --paper: #ffffff;      /* Karten / Flächen */
+  --ink: #16191f;        /* Anthrazit – Text & dunkle Sektionen */
+  --ink-soft: #4a4f59;   /* Fließtext auf hell */
+  --muted: #6b7079;      /* Sekundärtext */
+  --line: #e7e4dd;       /* Rahmen / Trenner */
+  --red: #d7261e;        /* Feuerwehr-Rot (Primärakzent) */
+  --red-dark: #b41d16;
+  --ember: #ff5a4d;      /* helles Rot – Highlights auf Dunkel */
+  --tint: #fbe9e7;       /* zarter Rot-Tint für Icon-Flächen */
+  --on-dark: #cfd3da;    /* Text auf Anthrazit */
+  --on-dark-muted: #9aa0aa;
+
+  /* Typografie */
+  --font-display: 'Archivo', system-ui, sans-serif;
+  --font-body: 'Public Sans', system-ui, sans-serif;
+
+  /* Layout */
+  --maxw: 1180px;
+  --pad: 32px;
+  --radius: 16px;
+  --radius-lg: 22px;
+
+  /* Tiefe */
+  --shadow-sm: 0 10px 30px -20px rgba(20, 25, 35, .35);
+  --shadow-md: 0 24px 50px -34px rgba(28, 42, 58, .40);
+  --shadow-lg: 0 40px 80px -40px rgba(20, 25, 35, .50);
+
+  /* Motion */
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--red); color: #fff; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.04;
+  letter-spacing: -.02em;
+  margin: 0 0 .5em;
+}
+
+p { margin: 0 0 1em; }
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+/* ---- Layout-Helfer -------------------------------------------------------- */
+.container {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  width: 100%;
+}
+
+.section { padding-block: clamp(56px, 8vw, 92px); }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--red);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.eyebrow::before {
+  content: '';
+  width: 30px;
+  height: 2px;
+  background: var(--red);
+  display: inline-block;
+}
+
+.lead { font-size: clamp(18px, 2vw, 20px); color: var(--ink-soft); line-height: 1.6; }
+
+/* ---- Buttons -------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 15px 26px;
+  border-radius: 11px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .2s ease, color .2s ease;
+}
+.btn:focus-visible { outline: 3px solid var(--ember); outline-offset: 3px; }
+.btn--primary {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 14px 30px -12px rgba(215, 38, 30, .6);
+}
+.btn--primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 18px 36px -12px rgba(215, 38, 30, .65); }
+.btn--ghost {
+  background: var(--paper);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.btn--ghost:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.btn--on-dark { background: transparent; border-color: #2b323c; color: #fff; }
+.btn--on-dark:hover { border-color: var(--ember); color: var(--ember); }
+
+/* ---- Karten --------------------------------------------------------------- */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px;
+}
+
+.icon-badge {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  background: var(--tint);
+  color: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+
+/* ---- Dunkle Sektion ------------------------------------------------------- */
+.dark { background: var(--ink); color: #fff; }
+.dark .lead { color: var(--on-dark); }
+
+/* ---- Link mit rotem Unterstrich ------------------------------------------ */
+.link-underline {
+  font-weight: 700;
+  color: var(--ink);
+  border-bottom: 2px solid var(--red);
+  padding-bottom: 3px;
+  transition: color .2s ease;
+}
+.link-underline:hover { color: var(--red); }
+
+/* ---- Status-Punkt (pulsierend) ------------------------------------------- */
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  display: inline-block;
+  animation: fwPulse 1.8s infinite;
+}
+
+/* ==========================================================================
+   Animationen – bewusst dezent (Richtung A pur)
+   ========================================================================== */
+@keyframes fwPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); } }
+@keyframes fwFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+
+.float { animation: fwFloat 5s ease-in-out infinite; }
+
+/* Scroll-Reveal – Startzustand; .is-visible wird per JS gesetzt. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s var(--ease), transform .8s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* Barrierefreiheit: Bewegung respektieren. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+  [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* ---- Utility -------------------------------------------------------------- */
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.text-center { text-align: center; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 900px) {
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  :root { --pad: 20px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}

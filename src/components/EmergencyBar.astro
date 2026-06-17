@@ -1,0 +1,21 @@
+---
+import { kontakt } from '../data/site.js';
+---
+<div class="ebar">
+  <div class="container ebar__inner">
+    <span class="ebar__status"><span class="dot"></span>Einsatzbereit · 24 Stunden, 365 Tage</span>
+    <span class="ebar__notruf">Im Notfall: <a href={`tel:${kontakt.notruf}`}>{kontakt.notruf}</a></span>
+  </div>
+</div>
+
+<style>
+  .ebar { background: var(--ink); color: var(--on-dark); font-size: 13px; letter-spacing: .02em; }
+  .ebar__inner { display: flex; justify-content: space-between; align-items: center; padding-block: 8px; gap: 12px; }
+  .ebar__status { display: inline-flex; align-items: center; gap: 8px; }
+  .ebar__notruf { font-weight: 700; color: #fff; white-space: nowrap; }
+  .ebar__notruf a { color: var(--ember); }
+  .ebar__notruf a:hover { text-decoration: underline; }
+  @media (max-width: 520px) {
+    .ebar__status { font-size: 12px; }
+  }
+</style>

@@ -1,0 +1,178 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import { verein, kontakt, kennzahlen, abteilungen, berichte } from '../data/site.js';
+
+const kernAbteilungen = abteilungen.filter((a) =>
+  ['kinderfeuerwehr', 'jugendfeuerwehr', 'einsatzabteilung'].includes(a.slug)
+);
+---
+<Base description="Freiwillige Feuerwehr Bendestorf – ehrenamtlich im Einsatz für die Gemeinde. Mitmachen ab 6 Jahren in Kinder-, Jugend- und Einsatzabteilung.">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div data-reveal="0">
+        <span class="eyebrow">Wir für Bendestorf</span>
+        <h1 class="hero__title">Freiwillig.<br />Im Einsatz.<br /><span class="accent">Für euch.</span></h1>
+        <p class="lead hero__lead">
+          Seit Generationen sorgen wir ehrenamtlich für die Sicherheit in unserer Gemeinde.
+          Retten, Löschen, Bergen, Schützen — rund um die Uhr.
+        </p>
+        <div class="hero__cta">
+          <a href="/mitmachen" class="btn btn--primary">Mitglied werden <Icon name="arrow" size={18} /></a>
+          <a href="/abteilungen" class="btn btn--ghost">Unsere Abteilungen</a>
+        </div>
+        <p class="hero__addr">
+          <Icon name="location" size={16} />
+          {kontakt.strasse} · {kontakt.plz} {kontakt.ort} · {kontakt.telefon}
+        </p>
+      </div>
+
+      <div class="hero__media" data-reveal="120">
+        <PhotoPlaceholder label="FOTO · MANNSCHAFT" ratio="4 / 5" />
+        <div class="hero__stat float">
+          <div class="hero__stat-num">43</div>
+          <div class="hero__stat-label">aktive Kameraden</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KENNZAHLEN -->
+  <section class="dark stats">
+    <div class="container grid grid-4">
+      {kennzahlen.map((k, i) => (
+        <div class="stat text-center" data-reveal={i * 80}>
+          {k.wert !== null
+            ? <div class="stat__num" data-count data-target={k.wert}>0</div>
+            : <div class="stat__num accent-ember">{k.anzeige}</div>}
+          <div class="stat__label">{k.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ABTEILUNGEN -->
+  <section class="section">
+    <div class="container">
+      <div class="head-row" data-reveal="0">
+        <div>
+          <span class="eyebrow">Mitmachen</span>
+          <h2 class="head-row__title">Eine Feuerwehr für jedes Alter.</h2>
+        </div>
+        <a href="/abteilungen" class="link-underline">Alle Abteilungen →</a>
+      </div>
+
+      <div class="grid grid-3">
+        {kernAbteilungen.map((a, i) => (
+          <a href={`/abteilungen#${a.slug}`} class:list={['dept', { 'dept--accent': a.slug === 'einsatzabteilung' }]} data-reveal={i * 90}>
+            <span class="icon-badge"><Icon name={a.icon} /></span>
+            <h3 class="dept__name">{a.name}</h3>
+            <p class="dept__alter">{a.alter}</p>
+            <p class="dept__desc">{a.kurz}</p>
+            <p class="dept__dienst"><Icon name="clock" size={15} /> {a.dienst}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BERICHTE -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="head-row" data-reveal="0">
+        <h2 class="head-row__title">Aktuelle Berichte</h2>
+        <a href="/berichte" class="link-underline">Alle Berichte →</a>
+      </div>
+      <div class="grid grid-3">
+        {berichte.map((b, i) => (
+          <a href={`/berichte#${b.slug}`} class="report" data-reveal={i * 90}>
+            <PhotoPlaceholder label="FOTO" ratio="16 / 10" />
+            <div class="report__body">
+              <span class="report__cat">{b.kategorie}</span>
+              <h3 class="report__title">{b.titel}</h3>
+              <p class="report__teaser">{b.teaser}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container cta__inner" data-reveal="0">
+      <div>
+        <h2 class="cta__title">Werde Teil der Mannschaft.</h2>
+        <p class="lead">Ob 6 oder 67 — bei uns findet jede und jeder den passenden Platz. Komm zu einem Dienst vorbei und lern uns kennen.</p>
+      </div>
+      <a href="/mitmachen" class="btn btn--primary">Jetzt mitmachen <Icon name="arrow" size={18} /></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* HERO */
+  .hero { padding-block: clamp(36px, 6vw, 64px) clamp(48px, 7vw, 80px); }
+  .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 54px; align-items: center; }
+  .hero__title { font-weight: 900; font-size: clamp(44px, 6vw, 76px); line-height: .96; letter-spacing: -.03em; margin-bottom: 22px; }
+  .accent { color: var(--red); }
+  .hero__lead { max-width: 46ch; margin-bottom: 32px; }
+  .hero__cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero__addr { display: inline-flex; align-items: center; gap: 10px; margin-top: 32px; font-size: 14px; color: var(--muted); }
+  .hero__addr :global(svg) { color: var(--red); }
+
+  .hero__media { position: relative; }
+  .hero__media :global(.photo) { box-shadow: var(--shadow-lg); }
+  .hero__stat {
+    position: absolute; bottom: -22px; left: -22px;
+    background: var(--ink); color: #fff; border-radius: 14px; padding: 18px 22px;
+    box-shadow: 0 20px 40px -18px rgba(20, 25, 35, .6);
+  }
+  .hero__stat-num { font-family: var(--font-display); font-weight: 900; font-size: 30px; line-height: 1; color: var(--ember); }
+  .hero__stat-label { font-size: 12px; letter-spacing: .04em; color: var(--on-dark); margin-top: 4px; }
+
+  /* STATS */
+  .stats { padding-block: 48px; }
+  .stat__num { font-family: var(--font-display); font-weight: 900; font-size: clamp(40px, 5vw, 54px); line-height: 1; color: #fff; }
+  .accent-ember { color: var(--ember); }
+  .stat__label { color: var(--on-dark-muted); font-size: 14px; margin-top: 8px; letter-spacing: .04em; }
+
+  /* HEAD ROW */
+  .head-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 34px; }
+  .head-row__title { font-weight: 800; font-size: clamp(30px, 3.6vw, 46px); max-width: 20ch; margin: 0; }
+
+  /* ABTEILUNGEN */
+  .dept { display: block; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+  .dept:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .dept__name { font-weight: 800; font-size: 20px; margin-bottom: 2px; }
+  .dept__alter { color: var(--red); font-weight: 700; font-size: 13px; letter-spacing: .04em; margin-bottom: 10px; }
+  .dept__desc { color: var(--muted); font-size: 15px; line-height: 1.55; margin-bottom: 14px; }
+  .dept__dienst { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--ink); margin: 0; }
+  .dept--accent { background: var(--red); color: #fff; border-color: var(--red); }
+  .dept--accent .icon-badge { background: rgba(255,255,255,.18); color: #fff; }
+  .dept--accent .dept__alter, .dept--accent .dept__dienst { color: #fff; }
+  .dept--accent .dept__desc { color: rgba(255,255,255,.85); }
+
+  /* BERICHTE */
+  .section--alt { background: var(--cream); }
+  .report { display: block; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+  .report:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .report :global(.photo) { border-radius: 0; }
+  .report__body { padding: 22px; }
+  .report__cat { color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .report__title { font-weight: 800; font-size: 19px; margin: 10px 0 8px; line-height: 1.2; }
+  .report__teaser { color: var(--muted); font-size: 14px; line-height: 1.55; margin: 0; }
+
+  /* CTA */
+  .cta { background: var(--ink); color: #fff; }
+  .cta__inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding-block: clamp(48px, 7vw, 72px); flex-wrap: wrap; }
+  .cta__title { font-weight: 900; font-size: clamp(28px, 4vw, 46px); color: #fff; }
+  .cta .lead { color: var(--on-dark); max-width: 52ch; margin: 0; }
+
+  @media (max-width: 860px) {
+    .hero__grid { grid-template-columns: 1fr; gap: 56px; }
+    .hero__media { max-width: 460px; }
+  }
+</style>

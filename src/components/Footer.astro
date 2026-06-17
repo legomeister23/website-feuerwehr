@@ -1,0 +1,84 @@
+---
+import { verein, kontakt, abteilungen } from '../data/site.js';
+import Icon from './Icon.astro';
+const jahr = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">FF</span>
+        <span class="brand__name">{verein.kurzname}</span>
+      </div>
+      <p class="addr">
+        {kontakt.strasse} · {kontakt.plz} {kontakt.ort}<br>
+        <a href={`tel:${kontakt.telefonHref}`}>Tel. {kontakt.telefon}</a><br>
+        <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
+      </p>
+      <p class="notruf"><Icon name="phone" size={16} /> Im Notfall: <strong>{kontakt.notruf}</strong></p>
+    </div>
+
+    <div>
+      <h4 class="col-title">Abteilungen</h4>
+      <ul class="links">
+        {abteilungen.map((a) => (
+          <li><a href={`/abteilungen#${a.slug}`}>{a.name}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="col-title">Mehr</h4>
+      <ul class="links">
+        <li><a href="/berichte">Berichte &amp; Aktuelles</a></li>
+        <li><a href="/fahrzeuge">Fahrzeuge &amp; Ausstattung</a></li>
+        <li><a href="/ueber-uns">Über uns / Kommando</a></li>
+        <li><a href="/mitmachen">Mitmachen</a></li>
+        <li><a href="/foerderverein">Förderverein</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="col-title">Rechtliches</h4>
+      <ul class="links">
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="site-footer__base">
+    <div class="container">© {jahr} {verein.name} · {verein.typ}</div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--ink); color: var(--on-dark); }
+  .site-footer__grid {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 32px;
+    padding-block: 56px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .brand__mark {
+    width: 40px; height: 40px; border-radius: 9px; background: var(--red); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 900;
+  }
+  .brand__name { font-family: var(--font-display); font-weight: 800; font-size: 16px; color: #fff; }
+  .addr { font-size: 14px; line-height: 1.7; color: var(--on-dark-muted); max-width: 34ch; }
+  .addr a { color: var(--on-dark); }
+  .addr a:hover { color: var(--ember); }
+  .notruf { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--on-dark-muted); }
+  .notruf strong { color: var(--ember); }
+
+  .col-title { font-family: var(--font-body); color: #fff; font-weight: 700; font-size: 14px; letter-spacing: .04em; margin-bottom: 14px; }
+  .links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+  .links a { color: var(--on-dark-muted); transition: color .2s ease; }
+  .links a:hover { color: #fff; }
+
+  .site-footer__base { border-top: 1px solid #1f242c; padding-block: 18px; text-align: center; color: #5b626c; font-size: 13px; }
+
+  @media (max-width: 860px) { .site-footer__grid { grid-template-columns: 1fr 1fr; gap: 28px; } }
+  @media (max-width: 520px) { .site-footer__grid { grid-template-columns: 1fr; } }
+</style>

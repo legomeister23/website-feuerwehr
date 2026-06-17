@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { kontakt } from '../data/site.js';
+---
+<Base title="Datenschutz" description="Datenschutzerklärung der Freiwilligen Feuerwehr Bendestorf.">
+  <PageHero eyebrow="Rechtliches" title="Datenschutzerklärung" />
+
+  <section class="section legal" style="padding-top: 0">
+    <div class="container legal__inner">
+      <div class="note" data-reveal="0">
+        Vorlage – bitte vor Veröffentlichung rechtlich prüfen (DSGVO/BDSG) und an den tatsächlichen
+        Hosting-Anbieter sowie eingesetzte Dienste anpassen.
+      </div>
+
+      <h2>1. Verantwortlicher</h2>
+      <p>
+        Verantwortlich im Sinne der DSGVO ist die Freiwillige Feuerwehr Bendestorf bzw. ihr Träger.
+        Vollständige Kontaktdaten siehe <a href="/impressum">Impressum</a>.<br />
+        E-Mail: <a href={`mailto:${kontakt.email}`}>{kontakt.email}</a>
+      </p>
+
+      <h2>2. Hosting</h2>
+      <p>TODO: Hosting-Anbieter benennen (z.&nbsp;B. GitHub Pages, Hetzner, Netcup …) und ggf. Auftragsverarbeitungsvertrag (AVV) erwähnen. Beim Aufruf werden technisch notwendige Server-Logdaten (z.&nbsp;B. IP-Adresse, Zeitpunkt, abgerufene Seite) verarbeitet (Art. 6 Abs. 1 lit. f DSGVO).</p>
+
+      <h2>3. Schriftarten</h2>
+      <p>
+        Diese Website verwendet ausschließlich <strong>lokal eingebundene Schriftarten</strong>
+        (self-hosted via @fontsource). Es werden <strong>keine</strong> externen Schriftdienste wie
+        Google Fonts geladen; dabei werden keine Daten an Dritte übertragen.
+      </p>
+
+      <h2>4. Keine Cookies / kein Tracking</h2>
+      <p>
+        Die Website setzt standardmäßig keine Cookies und bindet keine Analyse- oder Tracking-Dienste ein.
+        Sollte sich dies ändern (z.&nbsp;B. Karten-Einbindung, Statistik), wird diese Erklärung angepasst und
+        – sofern erforderlich – eine Einwilligung eingeholt.
+      </p>
+
+      <h2>5. Kontaktaufnahme</h2>
+      <p>
+        Wenn du uns per E-Mail oder Telefon kontaktierst, verarbeiten wir deine Angaben zur Bearbeitung
+        der Anfrage (Art. 6 Abs. 1 lit. b bzw. f DSGVO). Die Daten werden gelöscht, sobald sie nicht
+        mehr erforderlich sind.
+      </p>
+
+      <h2>6. Deine Rechte</h2>
+      <p>
+        Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung,
+        Datenübertragbarkeit sowie Widerspruch. Außerdem besteht ein Beschwerderecht bei einer
+        Datenschutz-Aufsichtsbehörde.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal__inner { max-width: 72ch; }
+  .legal h2 { font-weight: 800; font-size: 22px; margin: 32px 0 10px; }
+  .legal p { color: var(--ink-soft); }
+  .legal a { color: var(--red); }
+  .note { background: var(--tint); color: var(--red-dark); border-radius: 12px; padding: 14px 18px; margin-bottom: 28px; font-size: 14px; }
+</style>
